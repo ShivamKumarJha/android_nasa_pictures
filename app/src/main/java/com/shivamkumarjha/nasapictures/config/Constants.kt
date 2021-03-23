@@ -12,4 +12,5 @@ object Constants {
 
     //Bundle
     const val ERROR_MESSAGE = "ERROR_MESSAGE"
+    const val SLIDE_POSITION = "SLIDE_POSITION"
 }

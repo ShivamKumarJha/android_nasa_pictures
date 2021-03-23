@@ -88,7 +88,8 @@ class MainFragment : Fragment() {
     private fun getClickListener(): NASAClickListener {
         return object : NASAClickListener {
             override fun onCardClick(position: Int) {
-                findNavController().navigate(R.id.action_mainFragment_to_detailFragment)
+                val bundle = bundleOf(Constants.SLIDE_POSITION to position)
+                findNavController().navigate(R.id.action_mainFragment_to_detailFragment, bundle)
             }
         }
     }

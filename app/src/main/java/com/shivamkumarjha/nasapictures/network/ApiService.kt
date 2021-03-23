@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET("NASA.json")
-    suspend fun getNASAData(): Response<ArrayList<NASA>>
+    suspend fun getNASAData(): Response<List<NASA>>
 }

@@ -11,6 +11,6 @@ interface NASADao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addData(nasa: NASA)
 
-    @Query("SELECT * FROM nasa ORDER BY date ASC")
+    @Query("SELECT * FROM nasa ORDER BY date DESC")
     fun getData(): List<NASA>
 }

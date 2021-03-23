@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class SharedViewModel @ViewModelInject constructor(
     private val nasaRepository: NASARepository
 ) : ViewModel() {
-    val nasa = MutableLiveData<Resource<ArrayList<NASA>?>>()
+    val nasa = MutableLiveData<Resource<List<NASA>?>>()
 
     fun getData() {
         viewModelScope.launch(Dispatchers.IO) {

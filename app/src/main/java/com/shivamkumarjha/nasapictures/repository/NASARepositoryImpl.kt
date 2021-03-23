@@ -16,7 +16,7 @@ class NASARepositoryImpl(
     private val databaseRepository: DatabaseRepository,
 ) : NASARepository {
 
-    override suspend fun getNASAData(): Flow<Resource<ArrayList<NASA>?>> = flow {
+    override suspend fun getNASAData(): Flow<Resource<List<NASA>?>> = flow {
         emit(Resource.loading(data = null))
         try {
             //Get from database
@@ -26,11 +26,12 @@ class NASARepositoryImpl(
             }
             val response = apiService.getNASAData()
             if (response.isSuccessful) {
-                emit(Resource.success(data = response.body()))
-                Log.d(Constants.TAG, response.body().toString())
+                val responseData = response.body()?.sortedByDescending { it.date }
+                emit(Resource.success(data = responseData))
+                Log.d(Constants.TAG, responseData.toString())
                 //Save to database
-                if (!response.body().isNullOrEmpty()) {
-                    databaseRepository.addData(response.body()!!)
+                if (!responseData.isNullOrEmpty()) {
+                    databaseRepository.addData(responseData)
                 }
             } else {
                 emit(Resource.error(data = null, message = response.code().toString()))

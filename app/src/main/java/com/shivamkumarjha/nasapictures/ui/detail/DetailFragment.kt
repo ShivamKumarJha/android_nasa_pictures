@@ -48,6 +48,7 @@ class DetailFragment : Fragment() {
                         if (!it.data.isNullOrEmpty()) {
                             slidesAdapter = SlidesAdapter(it.data)
                             viewPager.adapter = slidesAdapter
+                            viewPager.currentItem = arguments?.getInt(Constants.SLIDE_POSITION) ?: 0
                         }
                     }
                     Status.ERROR -> {

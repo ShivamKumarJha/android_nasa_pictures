@@ -30,8 +30,8 @@ class NASAAdapter(private val clickListener: NASAClickListener) :
         holder.bind(position)
     }
 
-    fun setNASA(nasa: ArrayList<NASA>) {
-        this.nasa = nasa.sortedByDescending { it.date }
+    fun setNASA(nasa: List<NASA>) {
+        this.nasa = nasa
         notifyDataSetChanged()
     }
 

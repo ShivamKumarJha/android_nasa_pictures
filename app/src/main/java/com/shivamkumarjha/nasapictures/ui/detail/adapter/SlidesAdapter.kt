@@ -14,7 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.shivamkumarjha.nasapictures.R
 import com.shivamkumarjha.nasapictures.model.NASA
 
-class SlidesAdapter(private val slides: ArrayList<NASA>) : PagerAdapter() {
+class SlidesAdapter(private val slides: List<NASA>) : PagerAdapter() {
 
     private lateinit var layoutInflater: LayoutInflater
 
