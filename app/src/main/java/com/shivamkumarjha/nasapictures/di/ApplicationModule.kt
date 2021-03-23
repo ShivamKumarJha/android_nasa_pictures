@@ -2,6 +2,7 @@ package com.shivamkumarjha.nasapictures.di
 
 import android.content.Context
 import android.net.ConnectivityManager
+import androidx.room.Room
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
@@ -9,6 +10,7 @@ import com.google.gson.GsonBuilder
 import com.shivamkumarjha.nasapictures.BuildConfig
 import com.shivamkumarjha.nasapictures.config.Constants
 import com.shivamkumarjha.nasapictures.network.*
+import com.shivamkumarjha.nasapictures.persistence.NASADatabase
 import com.shivamkumarjha.nasapictures.repository.NASARepository
 import com.shivamkumarjha.nasapictures.repository.NASARepositoryImpl
 import dagger.Module
@@ -100,6 +102,15 @@ class ApplicationModule {
         .baseUrl(Constants.BASE_URL)
         .client(okHttpClient)
         .build().create(ApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun nasaDatabase(@ApplicationContext context: Context): NASADatabase =
+        Room.databaseBuilder(context, NASADatabase::class.java, Constants.DB_NAME).build()
+
+    @Provides
+    @Singleton
+    fun nasaDao(NASADatabase: NASADatabase) = NASADatabase.nasaDao()
 
     @Provides
     @Singleton
