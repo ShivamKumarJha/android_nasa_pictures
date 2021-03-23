@@ -9,4 +9,8 @@
     <string name="okay">Okay</string>
     <string name="detail">Detail</string>
     <string name="display">Display</string>
+    <string name="date">Date</string>
+    <string name="title">Title</string>
+    <string name="copyright">Copyright</string>
+    <string name="explanation">Explanation</string>
 </resources>

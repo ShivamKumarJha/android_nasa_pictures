@@ -45,6 +45,11 @@
         <item name="android:textColor">@color/text_grey</item>
     </style>
 
+    <style name="Theme.NASA.TextAppearance.Small" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textColor">@color/text_grey</item>
+    </style>
+
     <!-- Dialog -->
     <style name="DialogWindowAnimation">
         <item name="android:windowEnterAnimation">@anim/anim_dialogue_enter</item>
