@@ -12,7 +12,8 @@ import com.google.android.material.card.MaterialCardView
 import com.shivamkumarjha.nasapictures.R
 import com.shivamkumarjha.nasapictures.model.NASA
 
-class NASAAdapter : RecyclerView.Adapter<NASAAdapter.NASAViewHolder>() {
+class NASAAdapter(private val clickListener: NASAClickListener) :
+    RecyclerView.Adapter<NASAAdapter.NASAViewHolder>() {
 
     private var nasa: List<NASA> = arrayListOf()
 
@@ -25,7 +26,7 @@ class NASAAdapter : RecyclerView.Adapter<NASAAdapter.NASAViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: NASAViewHolder, position: Int) {
-        holder.bind(nasa[position])
+        holder.bind(position)
     }
 
     fun setNASA(nasa: ArrayList<NASA>) {
@@ -39,11 +40,14 @@ class NASAAdapter : RecyclerView.Adapter<NASAAdapter.NASAViewHolder>() {
         private val title: TextView = itemView.findViewById(R.id.title_tv)
         private val time: TextView = itemView.findViewById(R.id.time_tv)
 
-        fun bind(nasa: NASA) {
-            title.text = nasa.title
-            time.text = nasa.date
+        fun bind(position: Int) {
+            card.setOnClickListener {
+                clickListener.onCardClick(position)
+            }
+            title.text = nasa[position].title
+            time.text = nasa[position].date
             Glide.with(image.context)
-                .load(nasa.url)
+                .load(nasa[position].url)
                 .placeholder(R.drawable.ic_image_placeholder)
                 .apply(RequestOptions.centerCropTransform())
                 .into(image)

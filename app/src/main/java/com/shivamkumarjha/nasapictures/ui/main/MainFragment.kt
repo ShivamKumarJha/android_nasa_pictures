@@ -16,6 +16,7 @@ import com.shivamkumarjha.nasapictures.network.ConnectionLiveData
 import com.shivamkumarjha.nasapictures.network.Status
 import com.shivamkumarjha.nasapictures.ui.SharedViewModel
 import com.shivamkumarjha.nasapictures.ui.main.adapter.NASAAdapter
+import com.shivamkumarjha.nasapictures.ui.main.adapter.NASAClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -48,7 +49,7 @@ class MainFragment : Fragment() {
 
     private fun setViews() {
         //Recycler view
-        nasaAdapter = NASAAdapter()
+        nasaAdapter = NASAAdapter(getClickListener())
         recyclerView = binding.recyclerView
         recyclerView.apply {
             setHasFixedSize(true)
@@ -82,5 +83,13 @@ class MainFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun getClickListener(): NASAClickListener {
+        return object : NASAClickListener {
+            override fun onCardClick(position: Int) {
+                findNavController().navigate(R.id.action_mainFragment_to_detailFragment)
+            }
+        }
     }
 }
