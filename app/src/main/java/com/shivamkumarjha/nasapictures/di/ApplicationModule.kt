@@ -10,7 +10,10 @@ import com.google.gson.GsonBuilder
 import com.shivamkumarjha.nasapictures.BuildConfig
 import com.shivamkumarjha.nasapictures.config.Constants
 import com.shivamkumarjha.nasapictures.network.*
+import com.shivamkumarjha.nasapictures.persistence.NASADao
 import com.shivamkumarjha.nasapictures.persistence.NASADatabase
+import com.shivamkumarjha.nasapictures.repository.DatabaseRepository
+import com.shivamkumarjha.nasapictures.repository.DatabaseRepositoryImpl
 import com.shivamkumarjha.nasapictures.repository.NASARepository
 import com.shivamkumarjha.nasapictures.repository.NASARepositoryImpl
 import dagger.Module
@@ -114,7 +117,16 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun getNASARepository(apiService: ApiService): NASARepository {
-        return NASARepositoryImpl(apiService)
+    fun getDatabaseRepository(nasaDao: NASADao): DatabaseRepository {
+        return DatabaseRepositoryImpl(nasaDao)
+    }
+
+    @Provides
+    @Singleton
+    fun getNASARepository(
+        apiService: ApiService,
+        databaseRepository: DatabaseRepository,
+    ): NASARepository {
+        return NASARepositoryImpl(apiService, databaseRepository)
     }
 }
