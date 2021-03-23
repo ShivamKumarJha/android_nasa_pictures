@@ -13,7 +13,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    //Views
     private lateinit var binding: ActivityMainBinding
 
     //TODO remove this, added for testing

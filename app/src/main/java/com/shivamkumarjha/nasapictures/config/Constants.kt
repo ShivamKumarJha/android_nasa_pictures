@@ -9,4 +9,7 @@ object Constants {
 
     //Database
     const val DB_NAME = "nasa_database.db"
+
+    //Bundle
+    const val ERROR_MESSAGE = "ERROR_MESSAGE"
 }

@@ -27,4 +27,28 @@
         <item name="titleTextAppearance">@android:style/TextAppearance.DeviceDefault.WindowTitle
         </item>
     </style>
+
+    <!-- Text styles -->
+    <style name="Theme.NASA.TextAppearance.Heading" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_18</item>
+        <item name="android:textColor">@color/text_grey</item>
+    </style>
+
+    <style name="Theme.NASA.TextAppearance.Normal" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textColor">@color/text_grey</item>
+    </style>
+
+    <!-- Dialog -->
+    <style name="DialogWindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/anim_dialogue_enter</item>
+        <item name="android:windowExitAnimation">@anim/anim_dialogue_exit</item>
+    </style>
+
+    <style name="Theme.NASA.Dialog" parent="Theme.MaterialComponents.Dialog">
+        <item name="android:background">@drawable/bg_round_corners_dialog</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:windowAnimationStyle">@style/DialogWindowAnimation</item>
+    </style>
 </resources>

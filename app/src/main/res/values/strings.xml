@@ -4,4 +4,7 @@
     <!-- Offline -->
     <string name="no_internet_connection">No internet connection</string>
     <string name="no_internet_connection_sub_text">Your Internet session was interrupted.\n Make sure that WiFi or Mobile data is turned on and you are connected to internet</string>
+    <string name="error_message">Error message</string>
+    <string name="error">Error</string>
+    <string name="okay">Okay</string>
 </resources>
