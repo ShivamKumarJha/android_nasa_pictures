@@ -7,4 +7,6 @@
     <string name="error_message">Error message</string>
     <string name="error">Error</string>
     <string name="okay">Okay</string>
+    <string name="detail">Detail</string>
+    <string name="display">Display</string>
 </resources>

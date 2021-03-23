@@ -29,7 +29,8 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.shivamkumarjha.nasapictures.ui.main.MainFragment"
-        android:label="MainFragment">
+        android:label="@string/display"
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_detailFragment"
             app:destination="@id/detailFragment"
@@ -41,5 +42,6 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.shivamkumarjha.nasapictures.ui.detail.DetailFragment"
-        android:label="DetailFragment" />
+        android:label="@string/detail"
+        tools:layout="@layout/fragment_detail" />
 </navigation>
