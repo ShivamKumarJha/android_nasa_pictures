@@ -58,10 +58,9 @@ class MainFragment : Fragment() {
 
     private fun observer() {
         connectionLiveData.observe(viewLifecycleOwner, {
-            if (it)
+            if (it) {
                 viewModel.getData()
-            else
-                findNavController().navigate(R.id.action_global_offlineDialog)
+            }
         })
         viewModel.nasa.observe(viewLifecycleOwner, {
             if (it != null) {
