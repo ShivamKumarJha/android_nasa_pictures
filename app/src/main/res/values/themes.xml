@@ -35,6 +35,11 @@
         <item name="android:textColor">@color/text_grey</item>
     </style>
 
+    <style name="Theme.NASA.TextAppearance.Medium" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textColor">@color/text_grey</item>
+    </style>
+
     <style name="Theme.NASA.TextAppearance.Normal" parent="TextAppearance.MaterialComponents.Headline4">
         <item name="android:textSize">@dimen/text_16</item>
         <item name="android:textColor">@color/text_grey</item>
