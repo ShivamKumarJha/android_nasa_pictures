@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NASA Pictures</string>
+
+    <!-- Offline -->
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="no_internet_connection_sub_text">Your Internet session was interrupted.\n Make sure that WiFi or Mobile data is turned on and you are connected to internet</string>
 </resources>
