@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "nasa")
 data class NASA(
-    @SerializedName("copyright") val copyright: String,
+    @SerializedName("copyright") val copyright: String?,
     @SerializedName("date") val date: String,
     @SerializedName("explanation") val explanation: String,
     @SerializedName("hdurl") val hdurl: String,
