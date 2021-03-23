@@ -2,8 +2,9 @@ package com.shivamkumarjha.nasapictures.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
-import com.shivamkumarjha.nasapictures.R
+import com.shivamkumarjha.nasapictures.databinding.ActivityMainBinding
 import com.shivamkumarjha.nasapictures.repository.NASARepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +14,9 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    //Views
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var toolbar: Toolbar
 
     //TODO remove this, added for testing
     @Inject
@@ -20,10 +24,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setViews()
 
         lifecycleScope.launch(Dispatchers.IO) {
             nasaRepository.getNASAData().collect {}
         }
+    }
+
+    private fun setViews() {
+        //Toolbar
+        toolbar = binding.toolbarId
+        setSupportActionBar(toolbar)
     }
 }
