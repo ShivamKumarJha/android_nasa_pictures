@@ -9,6 +9,8 @@ import com.google.gson.GsonBuilder
 import com.shivamkumarjha.nasapictures.BuildConfig
 import com.shivamkumarjha.nasapictures.config.Constants
 import com.shivamkumarjha.nasapictures.network.*
+import com.shivamkumarjha.nasapictures.repository.NASARepository
+import com.shivamkumarjha.nasapictures.repository.NASARepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -98,4 +100,10 @@ class ApplicationModule {
         .baseUrl(Constants.BASE_URL)
         .client(okHttpClient)
         .build().create(ApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun getNASARepository(apiService: ApiService): NASARepository {
+        return NASARepositoryImpl(apiService)
+    }
 }
