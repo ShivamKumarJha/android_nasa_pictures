@@ -58,11 +58,6 @@ class MainFragment : Fragment() {
     }
 
     private fun observer() {
-        connectionLiveData.observe(viewLifecycleOwner, {
-            if (it) {
-                viewModel.getData()
-            }
-        })
         viewModel.nasa.observe(viewLifecycleOwner, {
             if (it != null) {
                 when (it.status) {
@@ -73,14 +68,23 @@ class MainFragment : Fragment() {
                     }
                     Status.ERROR -> {
                         val bundle = bundleOf(Constants.ERROR_MESSAGE to it.message)
-                        findNavController().navigate(R.id.errorDialog, bundle)
+                        findNavController().navigate(R.id.action_global_errorDialog, bundle)
                     }
                     Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
-                    Status.OFFLINE -> findNavController().navigate(R.id.offlineDialog)
+                    Status.OFFLINE -> {
+                        //Empty as we have ConnectionLiveData
+                    }
                 }
                 if (it.status != Status.LOADING) {
                     binding.progressBar.visibility = View.GONE
                 }
+            }
+        })
+        connectionLiveData.observe(viewLifecycleOwner, {
+            if (it && nasaAdapter.getNASA().isNullOrEmpty()) {
+                viewModel.getData()
+            } else {
+                findNavController().navigate(R.id.action_global_offlineDialog)
             }
         })
     }

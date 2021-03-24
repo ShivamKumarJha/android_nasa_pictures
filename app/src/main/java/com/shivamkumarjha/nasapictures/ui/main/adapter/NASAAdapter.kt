@@ -30,6 +30,8 @@ class NASAAdapter(private val clickListener: NASAClickListener) :
         holder.bind(position)
     }
 
+    fun getNASA() = nasa
+
     fun setNASA(nasa: List<NASA>) {
         this.nasa = nasa
         notifyDataSetChanged()
