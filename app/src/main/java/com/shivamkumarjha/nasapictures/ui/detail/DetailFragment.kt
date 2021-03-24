@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -12,9 +13,11 @@ import androidx.viewpager.widget.ViewPager
 import com.shivamkumarjha.nasapictures.R
 import com.shivamkumarjha.nasapictures.config.Constants
 import com.shivamkumarjha.nasapictures.databinding.FragmentDetailBinding
+import com.shivamkumarjha.nasapictures.model.NASA
 import com.shivamkumarjha.nasapictures.network.Status
 import com.shivamkumarjha.nasapictures.ui.SharedViewModel
 import com.shivamkumarjha.nasapictures.ui.detail.adapter.SlidesAdapter
+import com.shivamkumarjha.nasapictures.utility.onPageSelected
 
 class DetailFragment : Fragment() {
     //Views
@@ -36,7 +39,6 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewPager = binding.slidesViewPager
-
         observer()
     }
 
@@ -46,9 +48,7 @@ class DetailFragment : Fragment() {
                 when (it.status) {
                     Status.SUCCESS -> {
                         if (!it.data.isNullOrEmpty()) {
-                            slidesAdapter = SlidesAdapter(it.data)
-                            viewPager.adapter = slidesAdapter
-                            viewPager.currentItem = arguments?.getInt(Constants.SLIDE_POSITION) ?: 0
+                            updateViewPager(it.data)
                         }
                     }
                     Status.ERROR -> {
@@ -64,5 +64,16 @@ class DetailFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun updateViewPager(data: List<NASA>) {
+        slidesAdapter = SlidesAdapter(data)
+        viewPager.adapter = slidesAdapter
+        val currentPosition = arguments?.getInt(Constants.SLIDE_POSITION) ?: 0
+        viewPager.currentItem = currentPosition
+        (activity as AppCompatActivity).supportActionBar?.title = data[currentPosition].title
+        viewPager.onPageSelected { position ->
+            (activity as AppCompatActivity).supportActionBar?.title = data[position].title
+        }
     }
 }
