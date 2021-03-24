@@ -13,5 +13,6 @@
     <color name="grey_500">#9E9E9E</color>
     <color name="grey_700">#616161</color>
     <color name="grey_900">#212121</color>
+    <color name="red_500">#f44336</color>
     <color name="text_grey">@color/grey_900</color>
 </resources>

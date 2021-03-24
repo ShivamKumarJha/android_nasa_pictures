@@ -10,18 +10,6 @@
         android:name="com.shivamkumarjha.nasapictures.ui.dialog.ErrorDialog"
         android:label="@string/error_message"
         tools:layout="@layout/dialog_error" />
-    <dialog
-        android:id="@+id/offlineDialog"
-        android:name="com.shivamkumarjha.nasapictures.ui.dialog.OfflineDialog"
-        android:label="@string/no_internet_connection"
-        tools:layout="@layout/dialog_offline" />
-    <action
-        android:id="@+id/action_global_offlineDialog"
-        app:destination="@id/offlineDialog"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right" />
     <action
         android:id="@+id/action_global_errorDialog"
         app:destination="@id/errorDialog" />

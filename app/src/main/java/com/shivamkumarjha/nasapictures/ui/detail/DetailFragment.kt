@@ -56,7 +56,8 @@ class DetailFragment : Fragment() {
                         findNavController().navigate(R.id.action_global_errorDialog, bundle)
                     }
                     Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
-                    Status.OFFLINE -> findNavController().navigate(R.id.action_global_offlineDialog)
+                    Status.OFFLINE -> {
+                    }
                 }
                 if (it.status != Status.LOADING) {
                     binding.progressBar.visibility = View.GONE

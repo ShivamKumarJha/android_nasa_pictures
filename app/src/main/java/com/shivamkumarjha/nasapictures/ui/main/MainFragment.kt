@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.shivamkumarjha.nasapictures.R
 import com.shivamkumarjha.nasapictures.config.Constants
 import com.shivamkumarjha.nasapictures.databinding.FragmentMainBinding
@@ -26,6 +28,7 @@ class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var nasaAdapter: NASAAdapter
+    private lateinit var snackbar: Snackbar
 
     private val viewModel: SharedViewModel by activityViewModels()
 
@@ -47,6 +50,11 @@ class MainFragment : Fragment() {
         observer()
     }
 
+    override fun onDestroyView() {
+        snackbar.dismiss()
+        super.onDestroyView()
+    }
+
     private fun setViews() {
         //Recycler view
         nasaAdapter = NASAAdapter(getClickListener())
@@ -55,6 +63,12 @@ class MainFragment : Fragment() {
             setHasFixedSize(true)
             adapter = nasaAdapter
         }
+        //SnackBar
+        snackbar = Snackbar.make(
+            binding.rootLayout,
+            resources.getString(R.string.no_internet_connection),
+            Snackbar.LENGTH_INDEFINITE
+        ).setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.red_500))
     }
 
     private fun observer() {
@@ -72,7 +86,7 @@ class MainFragment : Fragment() {
                     }
                     Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
                     Status.OFFLINE -> {
-                        //Empty as we have ConnectionLiveData
+                        //Empty as we have ConnectionLiveData here
                     }
                 }
                 if (it.status != Status.LOADING) {
@@ -83,8 +97,11 @@ class MainFragment : Fragment() {
         connectionLiveData.observe(viewLifecycleOwner, {
             if (it && nasaAdapter.getNASA().isNullOrEmpty()) {
                 viewModel.getData()
+            }
+            if (it) {
+                snackbar.dismiss()
             } else {
-                findNavController().navigate(R.id.action_global_offlineDialog)
+                snackbar.show()
             }
         })
     }
