@@ -31,7 +31,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_8"
-            android:padding="@dimen/padding_4"
             app:layout_constraintTop_toBottomOf="@id/nasa_iv" />
 
         <TextView
