@@ -18,6 +18,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.TimeUnit
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
@@ -48,6 +49,15 @@ class MainActivityTest {
                 return MockResponse()
                     .setResponseCode(200)
                     .setBody(FileReader.readStringFromFile("success_response.json"))
+            }
+        }
+    }
+
+    @Test
+    fun testFailedResponse() {
+        mockWebServer.dispatcher = object : Dispatcher() {
+            override fun dispatch(request: RecordedRequest): MockResponse {
+                return MockResponse().throttleBody(1024, 5, TimeUnit.SECONDS)
             }
         }
     }
