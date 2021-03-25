@@ -3,14 +3,14 @@ package com.shivamkumarjha.nasapictures.ui.detail.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.isVisible
+import androidx.core.widget.NestedScrollView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.textview.MaterialTextView
 import com.shivamkumarjha.nasapictures.R
 import com.shivamkumarjha.nasapictures.model.NASA
 
@@ -19,7 +19,7 @@ class SlidesAdapter(private val slides: List<NASA>) : PagerAdapter() {
     private lateinit var layoutInflater: LayoutInflater
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean =
-        view == `object` as ConstraintLayout
+        view == `object` as NestedScrollView
 
     override fun getCount(): Int = slides.size
 
@@ -27,11 +27,11 @@ class SlidesAdapter(private val slides: List<NASA>) : PagerAdapter() {
         layoutInflater = LayoutInflater.from(container.context)
         val view: View = layoutInflater.inflate(R.layout.item_slide, container, false)
 
-        val imageView: ImageView = view.findViewById(R.id.slides_image_view)
-        val title: TextView = view.findViewById(R.id.title_tv)
-        val explanation: TextView = view.findViewById(R.id.explanation_tv)
-        val copyright: TextView = view.findViewById(R.id.copyright_tv)
-        val date: TextView = view.findViewById(R.id.date_tv)
+        val imageView: AppCompatImageView = view.findViewById(R.id.detail_image)
+        val title: MaterialTextView = view.findViewById(R.id.detail_title)
+        val explanation: MaterialTextView = view.findViewById(R.id.detail_explanation)
+        val copyright: MaterialTextView = view.findViewById(R.id.detail_copyright)
+        val date: MaterialTextView = view.findViewById(R.id.detail_date)
 
         //Loader
         val circularProgressDrawable = CircularProgressDrawable(imageView.context)
@@ -56,6 +56,6 @@ class SlidesAdapter(private val slides: List<NASA>) : PagerAdapter() {
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        container.removeView(`object` as ConstraintLayout)
+        container.removeView(`object` as NestedScrollView)
     }
 }
