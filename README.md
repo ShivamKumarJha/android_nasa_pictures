@@ -2,6 +2,7 @@ NASA Pictures app
 =================
 
 [Signed APK](https://github.com/ShivamKumarJha/android_nasa_pictures/blob/master/app/release/app-release.apk)  
+![App](https://raw.githubusercontent.com/ShivamKumarJha/android_nasa_pictures/main/nasa.gif)
 
 Application Architecture
 ------------
