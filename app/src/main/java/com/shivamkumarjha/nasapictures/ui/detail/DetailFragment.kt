@@ -17,6 +17,7 @@ import com.shivamkumarjha.nasapictures.model.NASA
 import com.shivamkumarjha.nasapictures.network.Status
 import com.shivamkumarjha.nasapictures.ui.SharedViewModel
 import com.shivamkumarjha.nasapictures.ui.detail.adapter.SlidesAdapter
+import com.shivamkumarjha.nasapictures.utility.ZoomOutPageTransformer
 import com.shivamkumarjha.nasapictures.utility.onPageSelected
 
 class DetailFragment : Fragment() {
@@ -69,6 +70,7 @@ class DetailFragment : Fragment() {
     private fun updateViewPager(data: List<NASA>) {
         slidesAdapter = SlidesAdapter(data)
         viewPager.adapter = slidesAdapter
+        viewPager.setPageTransformer(true, ZoomOutPageTransformer())
         val currentPosition = arguments?.getInt(Constants.SLIDE_POSITION) ?: 0
         viewPager.currentItem = currentPosition
         (activity as AppCompatActivity).supportActionBar?.title = data[currentPosition].title
