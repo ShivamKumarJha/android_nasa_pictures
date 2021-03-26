@@ -3,12 +3,10 @@ package com.shivamkumarjha.nasapictures.di
 import android.content.Context
 import android.net.ConnectivityManager
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.google.gson.FieldNamingPolicy
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.shivamkumarjha.nasapictures.BuildConfig
 import com.shivamkumarjha.nasapictures.config.Constants
 import com.shivamkumarjha.nasapictures.network.*
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -20,13 +18,13 @@ import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class ApplicationModule {
+class NetworkModule {
 
     @Provides
     @Singleton
@@ -59,8 +57,7 @@ class ApplicationModule {
 
     @Provides
     @Reusable
-    fun getGson(): Gson = GsonBuilder().setLenient()
-        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
+    fun providesMoshi(): Moshi = Moshi.Builder().build()
 
     @Provides
     @Singleton
@@ -94,8 +91,8 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun getApiService(okHttpClient: OkHttpClient, gson: Gson): ApiService = Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create(gson))
+    fun getApiService(okHttpClient: OkHttpClient, mosh: Moshi): ApiService = Retrofit.Builder()
+        .addConverterFactory(MoshiConverterFactory.create(mosh))
         .baseUrl(Constants.BASE_URL)
         .client(okHttpClient)
         .build()

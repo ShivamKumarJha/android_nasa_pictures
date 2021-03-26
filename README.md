@@ -36,6 +36,7 @@ Libraries Used
   * [Glide][90] for image loading
   * [Hilt][92]: for [dependency injection][93]
   * [Kotlin Coroutines][91] for managing background threads with simplified code and reducing needs for callbacks
+  * [Moshi][94] is a modern JSON library for Android and Java. It makes it easy to parse JSON into Java objects.
   * [Retrofit](https://square.github.io/retrofit/) - Retrofit is a REST Client library to create an HTTP request and also to process the HTTP response from a REST API.
   * [Stetho](http://facebook.github.io/stetho/) - Enables to use Chrome debugging tools to troubleshoot network traffic, database files, and view layouts.
 
@@ -58,6 +59,7 @@ Libraries Used
 [91]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 [92]: https://developer.android.com/training/dependency-injection/hilt-android
 [93]: https://developer.android.com/training/dependency-injection
+[94]: https://github.com/square/moshi
 
 Android Studio IDE setup
 ------------------------
