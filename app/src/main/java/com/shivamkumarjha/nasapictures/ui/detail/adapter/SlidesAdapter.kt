@@ -11,12 +11,11 @@ import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.textview.MaterialTextView
-import com.shivamkumarjha.nasapictures.R
+import com.shivamkumarjha.nasapictures.databinding.ItemSlideBinding
 import com.shivamkumarjha.nasapictures.model.NASA
 
 class SlidesAdapter(private val slides: List<NASA>) : PagerAdapter() {
 
-    private lateinit var layoutInflater: LayoutInflater
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean =
         view == `object` as NestedScrollView
@@ -24,14 +23,14 @@ class SlidesAdapter(private val slides: List<NASA>) : PagerAdapter() {
     override fun getCount(): Int = slides.size
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        layoutInflater = LayoutInflater.from(container.context)
-        val view: View = layoutInflater.inflate(R.layout.item_slide, container, false)
+        val binding =
+            ItemSlideBinding.inflate(LayoutInflater.from(container.context), container, false)
 
-        val imageView: AppCompatImageView = view.findViewById(R.id.detail_image)
-        val title: MaterialTextView = view.findViewById(R.id.detail_title)
-        val explanation: MaterialTextView = view.findViewById(R.id.detail_explanation)
-        val copyright: MaterialTextView = view.findViewById(R.id.detail_copyright)
-        val date: MaterialTextView = view.findViewById(R.id.detail_date)
+        val imageView: AppCompatImageView = binding.detailImage
+        val title: MaterialTextView = binding.detailTitle
+        val explanation: MaterialTextView = binding.detailExplanation
+        val copyright: MaterialTextView = binding.detailCopyright
+        val date: MaterialTextView = binding.detailDate
 
         //Loader
         val circularProgressDrawable = CircularProgressDrawable(imageView.context)
@@ -51,8 +50,8 @@ class SlidesAdapter(private val slides: List<NASA>) : PagerAdapter() {
         date.text = slides[position].date
         copyright.isVisible = !slides[position].copyright.isNullOrEmpty()
 
-        container.addView(view)
-        return view
+        container.addView(binding.root)
+        return binding.root
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
