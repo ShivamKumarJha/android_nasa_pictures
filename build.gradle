@@ -4,7 +4,7 @@ buildscript {
     ext.coroutine_version = "1.4.0"
     ext.fragment_version = "1.3.1"
     ext.hilt_version = '2.33-beta'
-    ext.lifecycle_version = "2.2.0"
+    ext.lifecycle_version = "2.3.1"
     ext.nav_version = "2.3.4"
     ext.room_version = '2.2.6'
     ext.stetho_version = '1.5.1'
