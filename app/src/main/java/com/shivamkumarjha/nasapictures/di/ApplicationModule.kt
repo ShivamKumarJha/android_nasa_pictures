@@ -2,7 +2,6 @@ package com.shivamkumarjha.nasapictures.di
 
 import android.content.Context
 import android.net.ConnectivityManager
-import androidx.room.Room
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
@@ -10,17 +9,12 @@ import com.google.gson.GsonBuilder
 import com.shivamkumarjha.nasapictures.BuildConfig
 import com.shivamkumarjha.nasapictures.config.Constants
 import com.shivamkumarjha.nasapictures.network.*
-import com.shivamkumarjha.nasapictures.persistence.NASADao
-import com.shivamkumarjha.nasapictures.persistence.NASADatabase
-import com.shivamkumarjha.nasapictures.repository.DatabaseRepository
-import com.shivamkumarjha.nasapictures.repository.DatabaseRepositoryImpl
-import com.shivamkumarjha.nasapictures.repository.NASARepository
-import com.shivamkumarjha.nasapictures.repository.NASARepositoryImpl
 import dagger.Module
 import dagger.Provides
+import dagger.Reusable
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
@@ -31,7 +25,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 class ApplicationModule {
 
     @Provides
@@ -64,7 +58,7 @@ class ApplicationModule {
     ) = HttpInterceptor(networkHelper, noConnectivityException)
 
     @Provides
-    @Singleton
+    @Reusable
     fun getGson(): Gson = GsonBuilder().setLenient()
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
 
@@ -104,29 +98,6 @@ class ApplicationModule {
         .addConverterFactory(GsonConverterFactory.create(gson))
         .baseUrl(Constants.BASE_URL)
         .client(okHttpClient)
-        .build().create(ApiService::class.java)
-
-    @Provides
-    @Singleton
-    fun nasaDatabase(@ApplicationContext context: Context): NASADatabase =
-        Room.databaseBuilder(context, NASADatabase::class.java, Constants.DB_NAME).build()
-
-    @Provides
-    @Singleton
-    fun nasaDao(NASADatabase: NASADatabase) = NASADatabase.nasaDao()
-
-    @Provides
-    @Singleton
-    fun getDatabaseRepository(nasaDao: NASADao): DatabaseRepository {
-        return DatabaseRepositoryImpl(nasaDao)
-    }
-
-    @Provides
-    @Singleton
-    fun getNASARepository(
-        apiService: ApiService,
-        databaseRepository: DatabaseRepository,
-    ): NASARepository {
-        return NASARepositoryImpl(apiService, databaseRepository)
-    }
+        .build()
+        .create(ApiService::class.java)
 }

@@ -1,6 +1,5 @@
 package com.shivamkumarjha.nasapictures.ui
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,11 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.shivamkumarjha.nasapictures.model.NASA
 import com.shivamkumarjha.nasapictures.network.Resource
 import com.shivamkumarjha.nasapictures.repository.NASARepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SharedViewModel @ViewModelInject constructor(
+@HiltViewModel
+class SharedViewModel @Inject constructor(
     private val nasaRepository: NASARepository
 ) : ViewModel() {
     private val _nasa = MutableLiveData<Resource<List<NASA>?>>()
