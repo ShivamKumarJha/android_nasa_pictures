@@ -1,7 +1,6 @@
 package com.shivamkumarjha.nasapictures.ui.main.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,7 +9,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.card.MaterialCardView
-import com.shivamkumarjha.nasapictures.R
+import com.shivamkumarjha.nasapictures.databinding.ItemNasaBinding
 import com.shivamkumarjha.nasapictures.model.NASA
 
 class NASAAdapter(private val clickListener: NASAClickListener) :
@@ -21,9 +20,8 @@ class NASAAdapter(private val clickListener: NASAClickListener) :
     override fun getItemCount(): Int = nasa.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NASAViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_nasa, parent, false)
-        return NASAViewHolder(itemView)
+        val binding = ItemNasaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return NASAViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: NASAViewHolder, position: Int) {
@@ -37,11 +35,11 @@ class NASAAdapter(private val clickListener: NASAClickListener) :
         notifyDataSetChanged()
     }
 
-    inner class NASAViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val card: MaterialCardView = itemView.findViewById(R.id.card)
-        private val image: ImageView = itemView.findViewById(R.id.nasa_iv)
-        private val title: TextView = itemView.findViewById(R.id.title_tv)
-        private val time: TextView = itemView.findViewById(R.id.time_tv)
+    inner class NASAViewHolder(binding: ItemNasaBinding) : RecyclerView.ViewHolder(binding.root) {
+        private val card: MaterialCardView = binding.card
+        private val image: ImageView = binding.nasaIv
+        private val title: TextView = binding.titleTv
+        private val time: TextView = binding.timeTv
         private var circularProgressDrawable: CircularProgressDrawable =
             CircularProgressDrawable(image.context)
 
