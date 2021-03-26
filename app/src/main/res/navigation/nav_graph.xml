@@ -31,5 +31,10 @@
         android:id="@+id/detailFragment"
         android:name="com.shivamkumarjha.nasapictures.ui.detail.DetailFragment"
         android:label="@string/detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="slidePosition"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 </navigation>

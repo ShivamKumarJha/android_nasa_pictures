@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager.widget.ViewPager
 import com.shivamkumarjha.nasapictures.R
 import com.shivamkumarjha.nasapictures.config.Constants
@@ -26,7 +27,11 @@ class DetailFragment : Fragment() {
     private lateinit var viewPager: ViewPager
     private lateinit var slidesAdapter: SlidesAdapter
 
+    //ViewModel
     private val viewModel: SharedViewModel by activityViewModels()
+
+    //Navigation arguments
+    private val args: DetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,7 +76,7 @@ class DetailFragment : Fragment() {
         slidesAdapter = SlidesAdapter(data)
         viewPager.adapter = slidesAdapter
         viewPager.setPageTransformer(true, ZoomOutPageTransformer())
-        val currentPosition = arguments?.getInt(Constants.SLIDE_POSITION) ?: 0
+        val currentPosition = args.slidePosition
         viewPager.currentItem = currentPosition
         (activity as AppCompatActivity).supportActionBar?.title = data[currentPosition].title
         viewPager.onPageSelected { position ->
