@@ -24,6 +24,7 @@ class NASARepositoryImpl(
             if (!dbData.isNullOrEmpty()) {
                 emit(Resource.success(data = dbData))
             }
+            //API call
             val response = apiService.getNASAData()
             if (response.isSuccessful) {
                 val responseData = response.body()?.sortedByDescending { it.date }
