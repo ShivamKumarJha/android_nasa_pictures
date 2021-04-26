@@ -15,5 +15,6 @@ data class NASA(
     @Json(name = "media_type") val media_type: String,
     @Json(name = "service_version") val service_version: String,
     @Json(name = "title") val title: String,
-    @PrimaryKey @Json(name = "url") val url: String
+    @PrimaryKey @Json(name = "url") val url: String,
+    var isBookmarked: Boolean  = false
 )

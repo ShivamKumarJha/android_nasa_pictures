@@ -114,6 +114,10 @@ class MainFragment : Fragment() {
                     findNavController().navigate(action)
                 }
             }
+
+            override fun updateBookmark(isBookmarked: Boolean, url: String) {
+                viewModel.updateBookmark(isBookmarked, url)
+            }
         }
     }
 }

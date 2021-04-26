@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.card.MaterialCardView
+import com.shivamkumarjha.nasapictures.R
 import com.shivamkumarjha.nasapictures.databinding.ItemNasaBinding
 import com.shivamkumarjha.nasapictures.model.NASA
 
@@ -40,6 +42,7 @@ class NASAAdapter(private val clickListener: NASAClickListener) :
         private val image: ImageView = binding.nasaIv
         private val title: TextView = binding.titleTv
         private val time: TextView = binding.timeTv
+        private val bookmark = binding.bookmarkIb
         private var circularProgressDrawable: CircularProgressDrawable =
             CircularProgressDrawable(image.context)
 
@@ -60,6 +63,25 @@ class NASAAdapter(private val clickListener: NASAClickListener) :
                 .placeholder(circularProgressDrawable)
                 .apply(RequestOptions.centerCropTransform())
                 .into(image)
+
+            updateBookmarkIcon(position)
+            bookmark.setOnClickListener {
+                nasa[position].isBookmarked = !nasa[position].isBookmarked
+                updateBookmarkIcon(position)
+                clickListener.updateBookmark(nasa[position].isBookmarked, nasa[position].url)
+            }
+        }
+
+        fun updateBookmarkIcon(position: Int) {
+            if (nasa[position].isBookmarked) {
+                bookmark.setImageDrawable(
+                    ContextCompat.getDrawable(bookmark.context, R.drawable.ic_bookmark_selected)
+                )
+            } else {
+                bookmark.setImageDrawable(
+                    ContextCompat.getDrawable(bookmark.context, R.drawable.ic_bookmark_unselected)
+                )
+            }
         }
     }
 }

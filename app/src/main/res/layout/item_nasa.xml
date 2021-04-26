@@ -24,6 +24,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageButton
+            android:id="@+id/bookmark_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_bookmark_unselected"
+            app:layout_constraintEnd_toEndOf="@id/nasa_iv"
+            app:layout_constraintTop_toTopOf="@id/nasa_iv" />
+
         <TextView
             android:id="@+id/title_tv"
             style="@style/Theme.NASA.TextAppearance.Medium"

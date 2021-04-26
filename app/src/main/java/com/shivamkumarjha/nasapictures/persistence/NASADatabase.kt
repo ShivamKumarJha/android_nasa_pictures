@@ -8,7 +8,7 @@ import com.shivamkumarjha.nasapictures.model.NASA
     entities = [
         NASA::class
     ],
-    version = 1
+    version = 2
 )
 
 abstract class NASADatabase : RoomDatabase() {

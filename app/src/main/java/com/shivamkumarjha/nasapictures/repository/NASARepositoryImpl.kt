@@ -23,20 +23,21 @@ class NASARepositoryImpl(
             val dbData = databaseRepository.getData()
             if (!dbData.isNullOrEmpty()) {
                 emit(Resource.success(data = dbData))
-            }
-            //API call
-            val response = apiService.getNASAData()
-            if (response.isSuccessful) {
-                val responseData = response.body()?.sortedByDescending { it.date }
-                emit(Resource.success(data = responseData))
-                Log.d(Constants.TAG, responseData.toString())
-                //Save to database
-                if (!responseData.isNullOrEmpty()) {
-                    databaseRepository.addData(responseData)
-                }
             } else {
-                emit(Resource.error(data = null, message = response.code().toString()))
-                Log.d(Constants.TAG, response.code().toString())
+                //API call
+                val response = apiService.getNASAData()
+                if (response.isSuccessful) {
+                    val responseData = response.body()?.sortedByDescending { it.date }
+                    emit(Resource.success(data = responseData))
+                    Log.d(Constants.TAG, responseData.toString())
+                    //Save to database
+                    if (!responseData.isNullOrEmpty()) {
+                        databaseRepository.addData(responseData)
+                    }
+                } else {
+                    emit(Resource.error(data = null, message = response.code().toString()))
+                    Log.d(Constants.TAG, response.code().toString())
+                }
             }
         } catch (exception: Exception) {
             if (exception is NoConnectivityException)

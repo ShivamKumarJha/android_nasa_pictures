@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shivamkumarjha.nasapictures.model.NASA
 import com.shivamkumarjha.nasapictures.network.Resource
+import com.shivamkumarjha.nasapictures.repository.DatabaseRepository
 import com.shivamkumarjha.nasapictures.repository.NASARepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SharedViewModel @Inject constructor(
+    private val databaseRepository: DatabaseRepository,
     private val nasaRepository: NASARepository
 ) : ViewModel() {
     private val _nasa = MutableLiveData<Resource<List<NASA>?>>()
@@ -25,6 +27,12 @@ class SharedViewModel @Inject constructor(
             nasaRepository.getNASAData().collect {
                 _nasa.postValue(it)
             }
+        }
+    }
+
+    fun updateBookmark(isBookmarked: Boolean, url: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseRepository.updateBookmark(isBookmarked, url)
         }
     }
 }

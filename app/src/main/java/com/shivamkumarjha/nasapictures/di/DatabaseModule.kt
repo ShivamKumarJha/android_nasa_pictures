@@ -18,7 +18,9 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun nasaDatabase(@ApplicationContext context: Context): NASADatabase =
-        Room.databaseBuilder(context, NASADatabase::class.java, Constants.DB_NAME).build()
+        Room.databaseBuilder(context, NASADatabase::class.java, Constants.DB_NAME)
+            .fallbackToDestructiveMigration()
+            .build()
 
     @Provides
     @Singleton
