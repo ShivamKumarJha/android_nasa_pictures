@@ -18,4 +18,8 @@ class DatabaseRepositoryImpl(private val nasaDao: NASADao) : DatabaseRepository 
     override suspend fun updateBookmark(isBookmarked: Boolean, url: String) {
         nasaDao.updateBookmark(isBookmarked, url)
     }
+
+    override suspend fun getBookmarkedImages(isBookmarked: Boolean): List<NASA> {
+        return nasaDao.getBookmarkedImages(isBookmarked)
+    }
 }

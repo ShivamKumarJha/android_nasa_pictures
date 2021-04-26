@@ -16,4 +16,7 @@ interface NASADao {
 
     @Query("UPDATE nasa SET isBookmarked = :isBookmarked WHERE url LIKE :url")
     fun updateBookmark(isBookmarked: Boolean, url: String)
+
+    @Query("SELECT * FROM nasa WHERE isBookmarked =:isBookmarked  ORDER BY date DESC")
+    fun getBookmarkedImages(isBookmarked: Boolean = true): List<NASA>
 }

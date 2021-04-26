@@ -6,4 +6,5 @@ interface DatabaseRepository {
     suspend fun addData(list: List<NASA>)
     suspend fun getData(): List<NASA>
     suspend fun updateBookmark(isBookmarked: Boolean, url: String)
+    suspend fun getBookmarkedImages(isBookmarked: Boolean = true): List<NASA>
 }
