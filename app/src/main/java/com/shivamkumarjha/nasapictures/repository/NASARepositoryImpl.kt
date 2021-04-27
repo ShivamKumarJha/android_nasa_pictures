@@ -19,9 +19,9 @@ class NASARepositoryImpl(
     override suspend fun getNASAData(): Flow<Resource<List<NASA>?>> = flow {
         emit(Resource.loading(data = null))
         try {
-            //Get from database
             val dbData = databaseRepository.getData()
             if (!dbData.isNullOrEmpty()) {
+                //Get from database
                 emit(Resource.success(data = dbData))
             } else {
                 //API call

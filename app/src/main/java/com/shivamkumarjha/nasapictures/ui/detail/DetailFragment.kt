@@ -5,17 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager.widget.ViewPager
-import com.shivamkumarjha.nasapictures.R
-import com.shivamkumarjha.nasapictures.config.Constants
 import com.shivamkumarjha.nasapictures.databinding.FragmentDetailBinding
 import com.shivamkumarjha.nasapictures.model.NASA
-import com.shivamkumarjha.nasapictures.network.Status
 import com.shivamkumarjha.nasapictures.ui.SharedViewModel
 import com.shivamkumarjha.nasapictures.ui.detail.adapter.SlidesAdapter
 import com.shivamkumarjha.nasapictures.utility.ZoomOutPageTransformer
@@ -49,25 +44,9 @@ class DetailFragment : Fragment() {
     }
 
     private fun observer() {
-        viewModel.nasa.observe(viewLifecycleOwner, {
-            if (it != null) {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        if (!it.data.isNullOrEmpty()) {
-                            updateViewPager(it.data)
-                        }
-                    }
-                    Status.ERROR -> {
-                        val bundle = bundleOf(Constants.ERROR_MESSAGE to it.message)
-                        findNavController().navigate(R.id.action_global_errorDialog, bundle)
-                    }
-                    Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
-                    Status.OFFLINE -> {
-                    }
-                }
-                if (it.status != Status.LOADING) {
-                    binding.progressBar.visibility = View.GONE
-                }
+        viewModel.images.observe(viewLifecycleOwner, {
+            if (!it.isNullOrEmpty()) {
+                updateViewPager(it)
             }
         })
     }

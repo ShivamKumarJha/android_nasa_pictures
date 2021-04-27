@@ -47,7 +47,6 @@ class BookmarksFragment : Fragment() {
     }
 
     private fun observer() {
-        viewModel.getBookmarkedList()
         viewModel.bookmarks.observe(viewLifecycleOwner, { bookmarks ->
             bookmarks?.let {
                 nasaAdapter.setNASA(bookmarks)

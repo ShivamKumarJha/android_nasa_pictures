@@ -72,13 +72,15 @@ class MainFragment : Fragment() {
     }
 
     private fun observer() {
+        viewModel.images.observe(viewLifecycleOwner, {
+            if (!it.isNullOrEmpty()) {
+                nasaAdapter.setNASA(it)
+            }
+        })
         viewModel.nasa.observe(viewLifecycleOwner, {
             if (it != null) {
                 when (it.status) {
                     Status.SUCCESS -> {
-                        if (!it.data.isNullOrEmpty()) {
-                            nasaAdapter.setNASA(it.data)
-                        }
                     }
                     Status.ERROR -> {
                         val bundle = bundleOf(Constants.ERROR_MESSAGE to it.message)

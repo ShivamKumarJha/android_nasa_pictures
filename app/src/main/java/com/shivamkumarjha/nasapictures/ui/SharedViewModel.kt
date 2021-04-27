@@ -1,9 +1,6 @@
 package com.shivamkumarjha.nasapictures.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.shivamkumarjha.nasapictures.model.NASA
 import com.shivamkumarjha.nasapictures.network.Resource
 import com.shivamkumarjha.nasapictures.repository.DatabaseRepository
@@ -22,8 +19,13 @@ class SharedViewModel @Inject constructor(
     private val _nasa = MutableLiveData<Resource<List<NASA>?>>()
     val nasa: LiveData<Resource<List<NASA>?>> = _nasa
 
-    private val _bookmarks = MutableLiveData<List<NASA>?>()
-    val bookmarks: LiveData<List<NASA>?> = _bookmarks
+    val images = liveData(Dispatchers.IO) {
+        emitSource(databaseRepository.getImages())
+    }
+
+    val bookmarks = liveData(Dispatchers.IO) {
+        emitSource(databaseRepository.getBookmarkedImages())
+    }
 
     fun getData() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -36,12 +38,6 @@ class SharedViewModel @Inject constructor(
     fun updateBookmark(isBookmarked: Boolean, url: String) {
         viewModelScope.launch(Dispatchers.IO) {
             databaseRepository.updateBookmark(isBookmarked, url)
-        }
-    }
-
-    fun getBookmarkedList() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _bookmarks.postValue(databaseRepository.getBookmarkedImages(true))
         }
     }
 }
