@@ -72,7 +72,9 @@ fun MainNavHost(
             }
         ) { backStackEntry ->
             backStackEntry.arguments?.getInt(ARG_INDEX)?.let { index ->
-                //TODO
+                DetailScreen(viewModel, index) {
+                    navController.navigateUp()
+                }
             }
         }
     }
