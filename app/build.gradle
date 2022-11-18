@@ -124,6 +124,7 @@ dependencies {
 
     //Navigation
     implementation "androidx.navigation:navigation-compose:$navigation_version"
+    implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
 
     //Network debugging
     debugImplementation "com.github.chuckerteam.chucker:library:$chuck_version"

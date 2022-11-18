@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- Base application theme. -->
     <style name="Theme.NASAGallery" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
@@ -12,28 +10,11 @@
         <item name="colorSecondaryVariant">@color/secondaryDark</item>
         <item name="colorOnSecondary">@color/background</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:statusBarColor">@color/background</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/background</item>
         <!-- Toolbar -->
         <item name="appBarLayoutStyle">@style/Theme.NASAGallery.AppBarOverlay</item>
         <item name="toolbarStyle">@style/Theme.NASAGallery.Toolbar</item>
-    </style>
-
-    <!-- Splash -->
-    <style name="Theme.NASAGallery.SplashScreen" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/background</item>
-        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
-        <item name="windowSplashScreenAnimationDuration">300</item>
-        <item name="postSplashScreenTheme">@style/Theme.NASAGallery</item>
-    </style>
-
-    <!-- AppBar -->
-    <style name="Theme.NASAGallery.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
-        <item name="android:background">@color/background</item>
-    </style>
-
-    <style name="Theme.NASAGallery.Toolbar" parent="Widget.MaterialComponents.Toolbar">
-        <item name="titleTextColor">@color/text</item>
     </style>
 </resources>
