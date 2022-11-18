@@ -10,8 +10,8 @@ import com.shivamkumarjha.nasagallery.model.NASA
 @Dao
 interface NASADao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addImage(nasa: NASA)
+    suspend fun addImage(nasa: NASA)
 
     @Query("SELECT * FROM nasa ORDER BY date DESC")
-    fun getImages(): LiveData<List<NASA>>
+    fun getImages(): LiveData<List<NASA>?>
 }
