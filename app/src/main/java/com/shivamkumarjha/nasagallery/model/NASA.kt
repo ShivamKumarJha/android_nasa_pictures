@@ -10,7 +10,7 @@ data class NASA(
     @SerializedName("date") val date: String,
     @SerializedName("explanation") val explanation: String,
     @SerializedName("hdurl") val hdURL: String,
-    @SerializedName("media_type") val media_type: String,
+    @SerializedName("media_type") val mediaType: String,
     @SerializedName("service_version") val serviceVersion: String,
     @SerializedName("title") val title: String,
     @PrimaryKey @SerializedName("url") val url: String
