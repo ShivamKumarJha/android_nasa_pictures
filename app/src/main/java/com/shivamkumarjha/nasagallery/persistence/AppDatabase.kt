@@ -11,6 +11,6 @@ import com.shivamkumarjha.nasagallery.model.NASA
     version = 2
 )
 
-abstract class NASADatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun nasaDao(): NASADao
 }
