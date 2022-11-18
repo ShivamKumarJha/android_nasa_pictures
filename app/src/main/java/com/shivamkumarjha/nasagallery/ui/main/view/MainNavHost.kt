@@ -7,13 +7,17 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.shivamkumarjha.nasagallery.ui.main.model.MainEvent
 import com.shivamkumarjha.nasagallery.ui.main.viewmodel.MainViewModel
 
 private const val NAV_MAIN = "MAIN"
 private const val NAV_DETAIL = "DETAIL"
+private const val ARG_INDEX = "INDEX"
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -43,10 +47,17 @@ fun MainNavHost(
                 slideOutHorizontally(targetOffsetX = { 1000 }, animationSpec = tween(700))
             }
         ) {
-
+            MainScreen(viewModel) {
+                when (it) {
+                    is MainEvent.OpenDetail -> {
+                        navController.navigate("$NAV_DETAIL/${it.index}")
+                    }
+                }
+            }
         }
         composable(
-            NAV_DETAIL,
+            "$NAV_DETAIL/{$ARG_INDEX}",
+            arguments = listOf(navArgument(ARG_INDEX) { type = NavType.IntType }),
             enterTransition = {
                 slideInHorizontally(initialOffsetX = { 1000 }, animationSpec = tween(700))
             },
@@ -59,8 +70,10 @@ fun MainNavHost(
             popExitTransition = {
                 slideOutHorizontally(targetOffsetX = { 1000 }, animationSpec = tween(700))
             }
-        ) {
-
+        ) { backStackEntry ->
+            backStackEntry.arguments?.getInt(ARG_INDEX)?.let { index ->
+                //TODO
+            }
         }
     }
 }
