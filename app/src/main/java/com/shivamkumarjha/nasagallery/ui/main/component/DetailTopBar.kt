@@ -1,17 +1,21 @@
 package com.shivamkumarjha.nasagallery.ui.main.component
 
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DetailTopBar(onBack: () -> Unit) {
+fun DetailTopBar(text: MutableState<String>, onBack: () -> Unit) {
     TopAppBar(
-        title = {},
+        title = {
+            Text(
+                text = text.value,
+                style = MaterialTheme.typography.body1
+            )
+        },
         navigationIcon = {
             IconButton(onClick = onBack) {
                 Icon(

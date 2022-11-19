@@ -25,10 +25,18 @@ fun DetailScreen(viewModel: MainViewModel, index: Int, onBack: () -> Unit) {
     val images = viewModel.imagesDb.observeAsState()
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
+    val title = remember { mutableStateOf("") }
+
+    LaunchedEffect(pagerState) {
+        // Collect from the pager state a snapshotFlow reading the currentPage
+        snapshotFlow { pagerState.currentPage }.collect { page ->
+            title.value = "${page.plus(1)} / ${pagerState.pageCount}"
+        }
+    }
 
     Scaffold(
         topBar = {
-            DetailTopBar {
+            DetailTopBar(title) {
                 onBack()
             }
         }
