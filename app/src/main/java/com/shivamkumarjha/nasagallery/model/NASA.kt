@@ -13,5 +13,5 @@ data class NASA(
     @SerializedName("media_type") val mediaType: String,
     @SerializedName("service_version") val serviceVersion: String,
     @SerializedName("title") val title: String,
-    @PrimaryKey @SerializedName("url") val url: String
+    @PrimaryKey @SerializedName("url") val url: String,
 )

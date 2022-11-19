@@ -19,12 +19,14 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import com.shivamkumarjha.nasagallery.model.NASA
+import com.shivamkumarjha.nasagallery.ui.main.model.MainEvent
 
 @Composable
 fun ImageItem(
     nasa: NASA,
+    index: Int,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
+    event: (MainEvent) -> Unit,
 ) {
     val context = LocalContext.current
     val imageRequest = ImageRequest.Builder(context)
@@ -41,7 +43,9 @@ fun ImageItem(
     Box(modifier = modifier) {
         Card(modifier = Modifier
             .fillMaxSize()
-            .clickable { onClick() }) {
+            .clickable {
+                event(MainEvent.OpenDetail(index))
+            }) {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,

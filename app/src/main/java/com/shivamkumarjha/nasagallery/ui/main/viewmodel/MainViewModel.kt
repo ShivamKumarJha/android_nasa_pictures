@@ -24,6 +24,10 @@ class MainViewModel @Inject constructor(
     private val _imagesResponse by lazy { MutableLiveData<Resource<List<NASA>?>?>(null) }
     val imagesResponse: LiveData<Resource<List<NASA>?>?> by lazy { _imagesResponse }
 
+    init {
+        callImages()
+    }
+
     fun callImages() {
         viewModelScope.launch(dispatchers.io) {
             nasaRepository.getImages().collect {

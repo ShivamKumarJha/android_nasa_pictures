@@ -8,7 +8,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DetailTopBar(text: MutableState<String>, onBack: () -> Unit) {
+fun TopBar(text: MutableState<String>, onBack: () -> Unit) {
     TopAppBar(
         title = {
             Text(

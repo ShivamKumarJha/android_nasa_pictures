@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.*
 import com.shivamkumarjha.nasagallery.ui.main.component.DetailItem
-import com.shivamkumarjha.nasagallery.ui.main.component.DetailTopBar
+import com.shivamkumarjha.nasagallery.ui.main.component.TopBar
 import com.shivamkumarjha.nasagallery.ui.main.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
@@ -36,7 +36,7 @@ fun DetailScreen(viewModel: MainViewModel, index: Int, onBack: () -> Unit) {
 
     Scaffold(
         topBar = {
-            DetailTopBar(title) {
+            TopBar(title) {
                 onBack()
             }
         }

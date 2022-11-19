@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,14 +24,6 @@ fun MainScreen(
 ) {
     val images = viewModel.imagesDb.observeAsState()
     val imagesResponse = viewModel.imagesResponse.observeAsState()
-
-    fun callApi() {
-        viewModel.callImages()
-    }
-
-    LaunchedEffect(Unit) {
-        callApi()
-    }
 
     Scaffold(
         topBar = {
@@ -72,7 +63,9 @@ fun MainScreen(
                     )
 
                     Button(
-                        onClick = { callApi() },
+                        onClick = {
+                            viewModel.callImages()
+                        },
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
                     ) {
                         Text(
@@ -97,9 +90,7 @@ fun MainScreen(
         }
     ) {
         if (!images.value.isNullOrEmpty()) {
-            ImageGrid(images = images.value!!, Modifier.fillMaxSize()) {
-                event(MainEvent.OpenDetail(it))
-            }
+            ImageGrid(images = images.value!!, Modifier.fillMaxSize(), event)
         }
     }
 }

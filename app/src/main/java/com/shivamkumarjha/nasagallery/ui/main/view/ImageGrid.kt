@@ -10,12 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.shivamkumarjha.nasagallery.model.NASA
 import com.shivamkumarjha.nasagallery.ui.main.component.ImageItem
+import com.shivamkumarjha.nasagallery.ui.main.model.MainEvent
 
 @Composable
 fun ImageGrid(
     images: List<NASA>,
     modifier: Modifier = Modifier,
-    onClick: (Int) -> Unit,
+    event: (MainEvent) -> Unit,
 ) {
     LazyVerticalGrid(
         modifier = modifier,
@@ -24,12 +25,12 @@ fun ImageGrid(
         itemsIndexed(images) { index, nasa ->
             ImageItem(
                 nasa,
+                index,
                 Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 8.dp, vertical = 6.dp)
-            ) {
-                onClick(index)
-            }
+                    .padding(horizontal = 8.dp, vertical = 6.dp),
+                event
+            )
         }
     }
 }
