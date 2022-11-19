@@ -26,15 +26,15 @@ fun DetailScreen(viewModel: MainViewModel, index: Int, onBack: () -> Unit) {
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
 
-    if (!images.value.isNullOrEmpty()) {
-        Scaffold(
-            topBar = {
-                DetailTopBar {
-                    onBack()
-                }
+    Scaffold(
+        topBar = {
+            DetailTopBar {
+                onBack()
             }
-        ) { paddingValues ->
-            Column(modifier = Modifier.padding(paddingValues)) {
+        }
+    ) { paddingValues ->
+        Column(modifier = Modifier.padding(paddingValues)) {
+            if (!images.value.isNullOrEmpty()) {
                 HorizontalPager(
                     count = images.value!!.size,
                     state = pagerState,

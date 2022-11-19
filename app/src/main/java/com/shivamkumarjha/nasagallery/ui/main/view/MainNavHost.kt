@@ -27,6 +27,15 @@ fun MainNavHost(
     navController: NavHostController = rememberAnimatedNavController(),
     startDestination: String = NAV_MAIN
 ) {
+
+    fun handleMainEvents(mainEvent: MainEvent) {
+        when (mainEvent) {
+            is MainEvent.OpenDetail -> {
+                navController.navigate("$NAV_DETAIL/${mainEvent.index}")
+            }
+        }
+    }
+
     AnimatedNavHost(
         modifier = modifier,
         navController = navController,
@@ -48,13 +57,10 @@ fun MainNavHost(
             }
         ) {
             MainScreen(viewModel) {
-                when (it) {
-                    is MainEvent.OpenDetail -> {
-                        navController.navigate("$NAV_DETAIL/${it.index}")
-                    }
-                }
+                handleMainEvents(it)
             }
         }
+
         composable(
             "$NAV_DETAIL/{$ARG_INDEX}",
             arguments = listOf(navArgument(ARG_INDEX) { type = NavType.IntType }),
