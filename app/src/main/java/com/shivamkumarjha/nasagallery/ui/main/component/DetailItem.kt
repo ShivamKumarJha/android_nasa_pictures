@@ -33,7 +33,7 @@ fun DetailItem(
 
                     Image(
                         nasa.url,
-                        ContentScale.Fit,
+                        ContentScale.FillWidth,
                         Modifier
                             .fillMaxWidth()
                             .clip(MaterialTheme.shapes.small)
