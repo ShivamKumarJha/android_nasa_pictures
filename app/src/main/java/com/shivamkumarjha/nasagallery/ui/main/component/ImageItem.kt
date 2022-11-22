@@ -17,7 +17,6 @@ import com.shivamkumarjha.nasagallery.ui.main.model.MainEvent
 @Composable
 fun ImageItem(
     nasa: NASA,
-    index: Int,
     modifier: Modifier = Modifier,
     event: (MainEvent) -> Unit,
 ) {
@@ -25,7 +24,7 @@ fun ImageItem(
         Card(modifier = Modifier
             .fillMaxSize()
             .clickable {
-                event(MainEvent.OpenDetail(index))
+                event(MainEvent.OpenDetail(nasa.url))
             }) {
             Column(
                 modifier = Modifier.fillMaxSize(),

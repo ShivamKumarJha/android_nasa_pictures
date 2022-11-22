@@ -21,16 +21,33 @@ import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun DetailScreen(viewModel: MainViewModel, index: Int, onBack: () -> Unit) {
+fun DetailScreen(viewModel: MainViewModel, url: String, onBack: () -> Unit) {
     val images = viewModel.imagesDb.observeAsState()
     val pagerState = rememberPagerState()
     val scope = rememberCoroutineScope()
-    val title = remember { mutableStateOf("") }
 
+    val title = remember { mutableStateOf("") }
     LaunchedEffect(pagerState) {
         // Collect from the pager state a snapshotFlow reading the currentPage
         snapshotFlow { pagerState.currentPage }.collect { page ->
             title.value = "${page.plus(1)} / ${pagerState.pageCount}"
+        }
+    }
+
+    //Scroll to index
+    LaunchedEffect(images) {
+        if (images.value.isNullOrEmpty()) return@LaunchedEffect
+        var initIndex = -1
+        images.value?.forEachIndexed { index, nasa ->
+            if (url == nasa.url) {
+                initIndex = index
+                return@forEachIndexed
+            }
+        }
+        if (initIndex != -1) {
+            scope.launch {
+                pagerState.scrollToPage(initIndex)
+            }
         }
     }
 
@@ -90,13 +107,6 @@ fun DetailScreen(viewModel: MainViewModel, index: Int, onBack: () -> Unit) {
                         spacing = 4.dp
                     )
                 }
-            }
-        }
-
-        //Scroll to index
-        LaunchedEffect(Unit) {
-            scope.launch {
-                pagerState.scrollToPage(index)
             }
         }
     }

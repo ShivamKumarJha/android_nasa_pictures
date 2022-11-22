@@ -1,5 +1,6 @@
 package com.shivamkumarjha.nasagallery.ui.main.view
 
+import android.net.Uri
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,7 +14,7 @@ import com.shivamkumarjha.nasagallery.ui.main.viewmodel.MainViewModel
 
 private const val NAV_MAIN = "MAIN"
 private const val NAV_DETAIL = "DETAIL"
-private const val ARG_INDEX = "INDEX"
+private const val ARG_URL = "URL"
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -26,7 +27,7 @@ fun MainNavHost(
 
     fun handleMainEvents(mainEvent: MainEvent) {
         when (mainEvent) {
-            is MainEvent.OpenDetail -> navController.navigate("$NAV_DETAIL/${mainEvent.index}")
+            is MainEvent.OpenDetail -> navController.navigate("$NAV_DETAIL/${Uri.encode(mainEvent.url)}")
         }
     }
 
@@ -44,11 +45,11 @@ fun MainNavHost(
         }
 
         nasaComposable(
-            "$NAV_DETAIL/{$ARG_INDEX}",
-            arguments = listOf(navArgument(ARG_INDEX) { type = NavType.IntType }),
+            "$NAV_DETAIL/{$ARG_URL}",
+            arguments = listOf(navArgument(ARG_URL) { type = NavType.StringType }),
         ) { backStackEntry ->
-            backStackEntry.arguments?.getInt(ARG_INDEX)?.let { index ->
-                DetailScreen(viewModel, index) {
+            backStackEntry.arguments?.getString(ARG_URL)?.let { url ->
+                DetailScreen(viewModel, url) {
                     navController.navigateUp()
                 }
             }
