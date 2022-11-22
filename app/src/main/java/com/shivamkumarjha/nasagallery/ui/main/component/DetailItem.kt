@@ -1,11 +1,9 @@
 package com.shivamkumarjha.nasagallery.ui.main.component
 
-import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,12 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import coil.compose.SubcomposeAsyncImage
-import coil.decode.GifDecoder
-import coil.decode.ImageDecoderDecoder
-import coil.request.ImageRequest
 import com.shivamkumarjha.nasagallery.model.NASA
 
 @Composable
@@ -27,18 +20,6 @@ fun DetailItem(
     nasa: NASA,
     modifier: Modifier = Modifier,
 ) {
-    val context = LocalContext.current
-    val imageRequest = ImageRequest.Builder(context)
-        .data(nasa.url)
-        .decoderFactory(
-            if (Build.VERSION.SDK_INT >= 28)
-                ImageDecoderDecoder.Factory()
-            else
-                GifDecoder.Factory()
-        )
-        .crossfade(true)
-        .build()
-
     Card(modifier = modifier) {
 
         LazyColumn(
@@ -49,16 +30,13 @@ fun DetailItem(
 
             item {
                 Box(modifier = Modifier.fillMaxSize()) {
-                    SubcomposeAsyncImage(
-                        model = imageRequest,
-                        loading = {
-                            CircularProgressIndicator()
-                        },
-                        contentDescription = null,
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier
+
+                    Image(
+                        nasa.url,
+                        ContentScale.Fit,
+                        Modifier
                             .fillMaxWidth()
-                            .clip(MaterialTheme.shapes.medium)
+                            .clip(MaterialTheme.shapes.small)
                     )
 
                     if (!nasa.copyright.isNullOrEmpty()) {

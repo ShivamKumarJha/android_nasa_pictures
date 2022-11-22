@@ -30,9 +30,7 @@ fun MainNavHost(
 
     fun handleMainEvents(mainEvent: MainEvent) {
         when (mainEvent) {
-            is MainEvent.OpenDetail -> {
-                navController.navigate("$NAV_DETAIL/${mainEvent.index}")
-            }
+            is MainEvent.OpenDetail -> navController.navigate("$NAV_DETAIL/${mainEvent.index}")
         }
     }
 
