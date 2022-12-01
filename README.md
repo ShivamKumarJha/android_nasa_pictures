@@ -1,8 +1,8 @@
 NASA Pictures app
 =================
 
-[Signed APK](https://github.com/ShivamKumarJha/android_obvious_assignment/blob/master/app/release/app-release.apk)  
-![App](https://raw.githubusercontent.com/ShivamKumarJha/android_obvious_assignment/main/preview.gif)
+[Signed APK](https://github.com/ShivamKumarJha/android_nasa_pictures/blob/compose/app/release/app-release.apk)  
+![App](https://raw.githubusercontent.com/ShivamKumarJha/android_nasa_pictures/compose/preview.gif)
 
 Application Architecture
 ------------
@@ -74,7 +74,7 @@ For more resources on learning Android development, visit the
 
 Support
 -------
-If you've found an error in this repo, please file an [issue](https://github.com/ShivamKumarJha/android_obvious_assignment/issues).
+If you've found an error in this repo, please file an [issue](https://github.com/ShivamKumarJha/android_nasa_pictures/issues).
 
 Patches are encouraged, and may be submitted by making changes in a new branch 
 and submitting a pull request through GitHub.
