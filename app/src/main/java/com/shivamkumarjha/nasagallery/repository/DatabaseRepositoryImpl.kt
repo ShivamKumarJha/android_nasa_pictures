@@ -15,4 +15,12 @@ class DatabaseRepositoryImpl(
     override fun getImages(): LiveData<List<NASA>?> {
         return database.nasaDao().getImages()
     }
+
+    override suspend fun updateBookmark(bookmark: Boolean, url: String) {
+        database.nasaDao().updateBookmark(bookmark, url)
+    }
+
+    override fun getBookmarks(): LiveData<List<NASA>?> {
+        return database.nasaDao().getBookmarks()
+    }
 }

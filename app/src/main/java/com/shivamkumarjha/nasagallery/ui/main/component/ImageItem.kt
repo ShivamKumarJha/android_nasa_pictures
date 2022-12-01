@@ -3,8 +3,12 @@ package com.shivamkumarjha.nasagallery.ui.main.component
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BookmarkAdd
+import androidx.compose.material.icons.outlined.BookmarkRemove
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,13 +35,23 @@ fun ImageItem(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
-                    nasa.url,
-                    ContentScale.Crop,
-                    Modifier
-                        .height(250.dp)
-                        .clip(MaterialTheme.shapes.medium)
-                )
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Image(
+                        nasa.url,
+                        ContentScale.Crop,
+                        Modifier
+                            .height(250.dp)
+                            .clip(MaterialTheme.shapes.medium)
+                    )
+
+                    Icon(
+                        imageVector = if (nasa.bookmark) Icons.Outlined.BookmarkRemove else Icons.Filled.BookmarkAdd,
+                        contentDescription = null,
+                        modifier = Modifier.clickable {
+                            event(MainEvent.UpdateBookmark(nasa))
+                        }
+                    )
+                }
 
                 Text(
                     text = nasa.title,

@@ -21,6 +21,10 @@ class MainViewModel @Inject constructor(
         emitSource(databaseRepository.getImages())
     }
 
+    val bookmarks = liveData(dispatchers.io) {
+        emitSource(databaseRepository.getBookmarks())
+    }
+
     private val _imagesResponse by lazy { MutableLiveData<Resource<List<NASA>?>?>(null) }
     val imagesResponse: LiveData<Resource<List<NASA>?>?> by lazy { _imagesResponse }
 
@@ -33,6 +37,12 @@ class MainViewModel @Inject constructor(
             nasaRepository.getImages().collect {
                 _imagesResponse.postValue(it)
             }
+        }
+    }
+
+    fun updateBookmark(nasa: NASA) {
+        viewModelScope.launch(dispatchers.io) {
+            databaseRepository.updateBookmark(!nasa.bookmark, nasa.url)
         }
     }
 }

@@ -14,6 +14,7 @@ import com.shivamkumarjha.nasagallery.ui.main.viewmodel.MainViewModel
 
 private const val NAV_MAIN = "MAIN"
 private const val NAV_DETAIL = "DETAIL"
+private const val NAV_BOOKMARKS = "BOOKMARKS"
 private const val ARG_URL = "URL"
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -28,6 +29,9 @@ fun MainNavHost(
     fun handleMainEvents(mainEvent: MainEvent) {
         when (mainEvent) {
             is MainEvent.OpenDetail -> navController.navigate("$NAV_DETAIL/${Uri.encode(mainEvent.url)}")
+            is MainEvent.OpenBookmarks -> navController.navigate(NAV_BOOKMARKS)
+            is MainEvent.NavigateUp -> navController.navigateUp()
+            is MainEvent.UpdateBookmark -> viewModel.updateBookmark(mainEvent.nasa)
         }
     }
 
@@ -36,10 +40,14 @@ fun MainNavHost(
         navController = navController,
         startDestination = startDestination
     ) {
-        nasaComposable(
-            NAV_MAIN
-        ) {
+        nasaComposable(NAV_MAIN) {
             MainScreen(viewModel) {
+                handleMainEvents(it)
+            }
+        }
+
+        nasaComposable(NAV_BOOKMARKS) {
+            BookmarkScreen(viewModel) {
                 handleMainEvents(it)
             }
         }

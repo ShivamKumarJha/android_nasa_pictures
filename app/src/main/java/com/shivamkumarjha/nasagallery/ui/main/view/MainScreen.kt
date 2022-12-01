@@ -2,8 +2,11 @@ package com.shivamkumarjha.nasagallery.ui.main.view
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -37,6 +40,14 @@ fun MainScreen(
                 Text(
                     text = stringResource(id = R.string.app_name),
                     style = MaterialTheme.typography.body1
+                )
+
+                Icon(
+                    imageVector = Icons.Outlined.Bookmarks,
+                    contentDescription = null,
+                    modifier = Modifier.clickable {
+                        event(MainEvent.OpenBookmarks)
+                    }
                 )
             }
         },

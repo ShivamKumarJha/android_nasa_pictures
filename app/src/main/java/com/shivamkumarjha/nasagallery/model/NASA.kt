@@ -14,4 +14,5 @@ data class NASA(
     @SerializedName("service_version") val serviceVersion: String,
     @SerializedName("title") val title: String,
     @PrimaryKey @SerializedName("url") val url: String,
+    val bookmark: Boolean = false
 )

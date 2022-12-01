@@ -14,4 +14,10 @@ interface NASADao {
 
     @Query("SELECT * FROM nasa ORDER BY date DESC")
     fun getImages(): LiveData<List<NASA>?>
+
+    @Query("UPDATE nasa SET bookmark =:bookmark WHERE url =:url")
+    suspend fun updateBookmark(bookmark: Boolean, url: String)
+
+    @Query("SELECT * FROM nasa WHERE bookmark =:bookmark ORDER BY date DESC")
+    fun getBookmarks(bookmark: Boolean = true): LiveData<List<NASA>?>
 }
