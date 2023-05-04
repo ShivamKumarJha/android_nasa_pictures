@@ -99,9 +99,12 @@ fun MainScreen(
                 )
             }
         }
-    ) {
+    ) { padding ->
         if (!images.value.isNullOrEmpty()) {
-            ImageGrid(images = images.value!!, Modifier.fillMaxSize(), event)
+            ImageGrid(images = images.value!!,
+                Modifier
+                    .padding(padding)
+                    .fillMaxSize(), event)
         }
     }
 }
